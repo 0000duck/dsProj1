@@ -7,7 +7,7 @@ namespace dsProj1
 {
     static class Program
     {
-        //What we are using for ID generation
+        //For ID generation
         public static Random Rand;
         [STAThread]
         static void Main()

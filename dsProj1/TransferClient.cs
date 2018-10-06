@@ -14,16 +14,16 @@ namespace dsProj1
 
     public class TransferClient
     {
-        //This will hold our connected or connecting socket.
+        //To hold connection Socket.
         private Socket _baseSocket;
 
-        //This is our receive buffer.
+        //Receive buffer.
         private byte[] _buffer = new byte[8192];
 
-        //This is used for connecting.
+        //To connect.
         private ConnectCallback _connectCallback;
 
-        //This stores all of our transfers. Download and upload.
+        //This stores our all transfers(Download, Upload)
         private Dictionary<int, TransferQueue> _transfers = new Dictionary<int, TransferQueue>();
 
         public Dictionary<int, TransferQueue> Transfers
@@ -31,7 +31,6 @@ namespace dsProj1
             get { return _transfers; }
         }
 
-        //We should of used IsDisposed, but eh; You get the point.
         public bool Closed
         {
             get;
@@ -39,33 +38,32 @@ namespace dsProj1
         }
 
         //The folder we will save the files too. 
-        //By default, it will be "Transfers" which we will set.
         public string OutputFolder
         {
             get;
             set;
         }
 
-        //The IPEndPoint (IP Address and Port) of the connected socket.
+        //IP and port of connected socket.
         public IPEndPoint EndPoint
         {
             get;
             private set;
         }
 
-        public event TransferEventHandler Queued; //This will be called when a transfer is queued.
-        public event TransferEventHandler ProgressChanged; //This will be called when progres is made.
-        public event TransferEventHandler Stopped; //This will be called when a transfer is stopped.
-        public event TransferEventHandler Complete; //This will be called when a transfer is complete.
-        public event EventHandler Disconnected; //And as you can tell, it will be called upon disconnection.
+        public event TransferEventHandler Queued; 
+        public event TransferEventHandler ProgressChanged; 
+        public event TransferEventHandler Stopped;
+        public event TransferEventHandler Complete; 
+        public event EventHandler Disconnected;
 
-        //This will be the constructor for the client when we want to connect.
+        //Constructor for the client when we want to connect.
         public TransferClient()
         {
             _baseSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
 
-        //This is the constructor we will use once a connection is accepted by the listener.
+        //Constructor we will use once a connection is accepted by the listener.
         public TransferClient(Socket sock)
         {
             //Set the socket.
@@ -76,10 +74,9 @@ namespace dsProj1
 
         public void Connect(string hostName, int port, ConnectCallback callback)
         {
-            //Set the callback we set in the parameter to our local variable.
-            //We could also use the state parameter with BeginConnect so we don't need a variable as well.
+            
             _connectCallback = callback;
-            //We will begin an async connect.
+            
             _baseSocket.BeginConnect(hostName, port, connectCallback, null);
         }
 
@@ -88,14 +85,12 @@ namespace dsProj1
             string error = null;
             try //.NET will throw an exception if a connection could not be made.
             {
-                //Call EndConnect to finish the async operation.
+                
                 _baseSocket.EndConnect(ar);
-                //Grab the end point like we did up top.
                 EndPoint = (IPEndPoint)_baseSocket.RemoteEndPoint;
             }
             catch (Exception ex)
             {
-                //If an exception is thrown, we will set the error to the message to inform the user.
                 error = ex.Message;
             }
 
@@ -109,13 +104,7 @@ namespace dsProj1
             {
                 //Begin receiving the information.
                 //.NET can throw an exception here as well if the socket disconnects.
-                //Just as a precaution.
 
-                /*Except this time, we will use the socket flag of Peek
-                 * We will use peek to see how much data is actually available to read
-                 * The data can be fragmented; Meaning 2 bytes might come through, but the other 2 might lag for
-                 * a few milliseconds or so
-                 * We'll use Peek so we don't mis-read our size bytes and get off the wall sizes.*/
                 _baseSocket.BeginReceive(_buffer, 0, _buffer.Length, SocketFlags.Peek, receiveCallback, null);
             }
             catch
@@ -131,8 +120,10 @@ namespace dsProj1
             {
                 //We will create our upload queue.
                 TransferQueue queue = TransferQueue.CreateUploadQueue(this, fileName);
+
                 //Add the transfer to our transfer list.
                 _transfers.Add(queue.ID, queue);
+
                 //Now we will create and build our queue packet.
                 PacketWriter pw = new PacketWriter();
                 pw.Write((byte)Headers.Queue);

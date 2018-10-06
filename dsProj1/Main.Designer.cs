@@ -2,9 +2,7 @@
 
 partial class Main
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
+       
         private System.ComponentModel.IContainer components = null;
 
     /// <summary>
@@ -24,10 +22,6 @@ partial class Main
 
     #region Windows Form Designer generated code
 
-    /// <summary>
-    /// Required method for Designer support - do not modify
-    /// the contents of this method with the code editor.
-    /// </summary>
     private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -187,7 +181,7 @@ partial class Main
             // 
             this.txtSaveDir.Name = "txtSaveDir";
             this.txtSaveDir.Size = new System.Drawing.Size(300, 23);
-            this.txtSaveDir.Text = "...\\Transfers";
+            this.txtSaveDir.Text = "C:\\Transfers";
             // 
             // btnOpenDir
             // 
@@ -322,7 +316,7 @@ partial class Main
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "Main";
-            this.Text = "File Transfer";
+            this.Text = "Client/Server";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.menuTransfers.ResumeLayout(false);

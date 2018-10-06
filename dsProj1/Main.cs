@@ -12,24 +12,32 @@ using dsProj1;
 
 public partial class Main : Form
 {
-    //This will hold our listener. We will only need to create one instance of this.
+    //To hold Listner
     private Listener listener;
-    //This will hold our transfer client.
+    //private Listener listener1;
+
+    //To hold transfer client.
     private TransferClient transferClient;
-    //This will hold our output folder.
+    
+    //To hold output folder.
     private string outputFolder;
-    //This will hold our overall progress timer.
+    
+    //To hold overall progress timer.
     private Timer tmrOverallProg;
-    //This is our variable to determine of the server is running or not to accept another connection if our client
-    //Disconnects
+    
+    //This variable is used to see if server is running or not.
     private bool serverRunning;
 
     public Main()
     {
         InitializeComponent();
+
         //Create the listener and register the event.
         listener = new Listener();
         listener.Accepted += listener_Accepted;
+
+        //listener1 = new Listener();
+        //listener1.Accepted += listener_Accepted;
 
         //Create the timer and register the event.
         tmrOverallProg = new Timer();
@@ -59,7 +67,6 @@ public partial class Main : Form
 
     protected override void OnFormClosing(FormClosingEventArgs e)
     {
-        //Deregister all the events from the client if it is connected.
         deregisterEvents();
         base.OnFormClosing(e);
     }
@@ -82,6 +89,7 @@ public partial class Main : Form
 
         //Stop the listener
         listener.Stop();
+        //listener1.Stop();
 
         //Create the transfer client based on our newly connected socket.
         transferClient = new TransferClient(e.Accepted);
@@ -122,8 +130,9 @@ public partial class Main : Form
             Invoke(new ConnectCallback(connectCallback), sender, error);
             return;
         }
-        //Set the form to enabled.
+        
         Enabled = true;
+
         //If the error is not equal to null, something went wrong.
         if (error != null)
         {
@@ -162,7 +171,7 @@ public partial class Main : Form
             Invoke(new TransferEventHandler(transferClient_Stopped), sender, queue);
             return;
         }
-        //Remove the stopped transfer from view.
+        
         lstTransfers.Items[queue.ID.ToString()].Remove();
     }
 
@@ -213,7 +222,7 @@ public partial class Main : Form
             return;
         }
 
-        //Deregister the transfer client events
+        
         deregisterEvents();
 
         //Close every transfer
@@ -222,7 +231,8 @@ public partial class Main : Form
             TransferQueue queue = (TransferQueue)item.Tag;
             queue.Close();
         }
-        //Clear the listview
+
+        //To clear list view
         lstTransfers.Items.Clear();
         progressOverall.Value = 0;
 
@@ -235,8 +245,12 @@ public partial class Main : Form
         //If the server is still running, wait for another connection
         if (serverRunning)
         {
+
             listener.Start(int.Parse(txtServerPort.Text.Trim()));
+            //listener1.Start(int.Parse(txtServerPort.Text.Trim()));
             setConnectionStatus("Waiting...");
+
+            //listener1.Start(int.Parse(txtServerPort.Text.Trim()));
         }
         else //If we connected then disconnected, set the text back to connect.
         {
@@ -268,7 +282,7 @@ public partial class Main : Form
 
     private void btnStartServer_Click(object sender, EventArgs e)
     {
-        //We disabled the button, but lets just do a quick check
+        
         if (serverRunning)
             return;
         serverRunning = true;
@@ -276,8 +290,11 @@ public partial class Main : Form
         {
             //Try to listen on the desired port
             listener.Start(int.Parse(txtServerPort.Text.Trim()));
+            //listener1.Start(int.Parse(txtServerPort.Text.Trim()));
+
             //Set the connection status to waiting
             setConnectionStatus("Waiting...");
+
             //Enable/Disable the server buttons.
             btnStartServer.Enabled = false;
             btnStopServer.Enabled = true;
@@ -293,20 +310,24 @@ public partial class Main : Form
     {
         if (!serverRunning)
             return;
-        //Close the client if its active.
+        
         if (transferClient != null)
         {
             transferClient.Close();
-            //INSERT
+            
             transferClient = null;
-            //
+            
         }
+
         //Stop the listener
         listener.Stop();
+        //listener1.Stop();
+
         //Stop the timer
         tmrOverallProg.Stop();
-        //Reset the connection statis
+    
         setConnectionStatus("-");
+
         //Set our variables and enable/disable the buttons.
         serverRunning = false;
         btnStartServer.Enabled = true;
