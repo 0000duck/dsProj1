@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Net.Sockets;
 using System.Net;
-
-
 internal delegate void SocketAcceptedHandler(object sender, SocketAcceptedEventArgs e);
 
 internal class SocketAcceptedEventArgs : EventArgs
@@ -38,11 +36,13 @@ internal class SocketAcceptedEventArgs : EventArgs
 
 internal class Listener
 {
-    
+    #region Variables
     private Socket _socket = null;
     private bool _running = false;
     private int _port = -1;
-   
+    #endregion
+
+    #region Properties
     public Socket BaseSocket
     {
         get { return _socket; }
@@ -57,6 +57,7 @@ internal class Listener
     {
         get { return _port; }
     }
+    #endregion
 
     public event SocketAcceptedHandler Accepted;
 

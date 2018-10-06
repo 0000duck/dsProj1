@@ -7,7 +7,6 @@ using System.Threading;
 
 namespace dsProj1
 {
-
     public enum QueueType : byte
     {
         Download,

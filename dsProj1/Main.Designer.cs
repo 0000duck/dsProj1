@@ -1,35 +1,37 @@
-﻿namespace dsProj1
-{
-    partial class Main
+﻿using System.Drawing;
+
+partial class Main
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
+    /// <summary>
+    /// Clean up any resources being used.
+    /// </summary>
+    /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+    ///
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing && (components != null))
         {
-            if (disposing && (components != null))
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
+            components.Dispose();
         }
+        base.Dispose(disposing);
+    }
 
-        #region Windows Form Designer generated code
+    #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-        private void InitializeComponent()
+    /// <summary>
+    /// Required method for Designer support - do not modify
+    /// the contents of this method with the code editor.
+    /// </summary>
+    private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripSplitButton1 = new System.Windows.Forms.ToolStripSplitButton();
             this.portToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,7 +67,7 @@
             this.toolStrip1.SuspendLayout();
             this.menuTransfers.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            this.SuspendLayout();
+        this.SuspendLayout();
             // 
             // toolStrip1
             // 
@@ -92,7 +94,8 @@
             this.toolStripMenuItem2,
             this.btnStartServer,
             this.btnStopServer});
-            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Azure;
+            this.toolStripSplitButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton1.Image")));
+            this.toolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton1.Name = "toolStripSplitButton1";
             this.toolStripSplitButton1.Size = new System.Drawing.Size(55, 22);
             this.toolStripSplitButton1.Text = "Server";
@@ -102,7 +105,7 @@
             this.portToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.txtServerPort});
             this.portToolStripMenuItem.Name = "portToolStripMenuItem";
-            this.portToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.portToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.portToolStripMenuItem.Text = "Port";
             // 
             // txtServerPort
@@ -114,18 +117,18 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(95, 6);
             // 
             // btnStartServer
             // 
             this.btnStartServer.Name = "btnStartServer";
-            this.btnStartServer.Size = new System.Drawing.Size(180, 22);
+            this.btnStartServer.Size = new System.Drawing.Size(98, 22);
             this.btnStartServer.Text = "Start";
             // 
             // btnStopServer
             // 
             this.btnStopServer.Name = "btnStopServer";
-            this.btnStopServer.Size = new System.Drawing.Size(180, 22);
+            this.btnStopServer.Size = new System.Drawing.Size(98, 22);
             this.btnStopServer.Text = "Stop";
             // 
             // toolStripSeparator1
@@ -157,7 +160,8 @@
             // btnConnect
             // 
             this.btnConnect.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnConnect.ImageTransparentColor = System.Drawing.Color.Azure;
+            this.btnConnect.Image = ((System.Drawing.Image)(resources.GetObject("btnConnect.Image")));
+            this.btnConnect.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(56, 22);
             this.btnConnect.Text = "Connect";
@@ -173,7 +177,8 @@
             this.toolStripSplitButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.txtSaveDir,
             this.btnOpenDir});
-            this.toolStripSplitButton2.ImageTransparentColor = System.Drawing.Color.Azure;
+            this.toolStripSplitButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripSplitButton2.Image")));
+            this.toolStripSplitButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripSplitButton2.Name = "toolStripSplitButton2";
             this.toolStripSplitButton2.Size = new System.Drawing.Size(98, 22);
             this.toolStripSplitButton2.Text = "Save Directory";
@@ -182,7 +187,7 @@
             // 
             this.txtSaveDir.Name = "txtSaveDir";
             this.txtSaveDir.Size = new System.Drawing.Size(300, 23);
-            this.txtSaveDir.Text = "C:\\";
+            this.txtSaveDir.Text = "...\\Transfers";
             // 
             // btnOpenDir
             // 
@@ -317,7 +322,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "Main";
-            this.Text = "Client/Server";
+            this.Text = "File Transfer";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.menuTransfers.ResumeLayout(false);
@@ -329,7 +334,6 @@
         }
 
         #endregion
-
 
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripSplitButton toolStripSplitButton1;
@@ -364,5 +368,3 @@
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
     }
-}
-
